@@ -1,3 +1,4 @@
+import Header from "@/components/header";
 import { ReactNode } from "react";
 
 const RootLayout = ({ children }: Readonly< { children: ReactNode } > ) => {
@@ -13,6 +14,8 @@ const RootLayout = ({ children }: Readonly< { children: ReactNode } > ) => {
       </head>
 
       <body>
+
+        <Header/>
 
         { children }
           

@@ -1,40 +1,51 @@
 import { FC } from "react";
-import axios from "axios";
+import Films from "@/components/films";
+import { getFilms } from "@/scripts/backend";
+import { NOT_NULL, PAGE_SIZE, TYPE } from "@/constants/films.params";
+import parseRangeParam from "@/scripts/parse.range.param";
 
-const HomePage: FC = async () => {
+const HomePage: FC<{ searchParams: any }> = async ({ searchParams }) => {
+
+  const [ratingFrom, ratingTo] = parseRangeParam(searchParams?.['rating.imdb'], 0, 10);
+  const [yearFrom, yearTo] = parseRangeParam(searchParams?.year, 1990, new Date().getFullYear());
+
+  const filters = {
+
+    genres: searchParams?.['genres.name'] 
+      ? Array.isArray(searchParams['genres.name']) 
+        ? searchParams['genres.name'] 
+        : [searchParams['genres.name']] 
+      : [],
+
+    ratingFrom: ratingFrom,
+    ratingTo: ratingTo,
+    yearFrom: yearFrom,
+    yearTo: yearTo,
+
+  };
 
   let films = [];
 
   try {
 
-    const response = await axios.get('https://api.kinopoisk.dev/v1.4/movie', {
-
-      params: {
-        page: 1,
-        limit: 10,
-      },
-
-      headers: {
-        accept: 'application/json',
-        'X-API-KEY': '6GS2239-4C3456F-NQ422KZ-YMN61WZ',
-      },
-
-    });
-
-    console.log(response.data.docs);
-    films = response.data.docs;
+    const response = await getFilms('1', PAGE_SIZE, NOT_NULL, TYPE, filters);
+    films = response.docs || [];
 
   } catch (error) {
 
-    console.error(error);
+    console.error('SSR error:', error);
 
   }
 
   return (
-
-    <div>
-
-    </div>
+  
+    <Films 
+    
+      films = { films } 
+      page = { 1 } 
+      ssrFilters = { filters } 
+    
+    />
 
   );
 
