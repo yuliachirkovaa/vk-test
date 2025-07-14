@@ -1,0 +1,157 @@
+@import "@/styles/apx.scss";
+@import "@/styles/mixins.scss";
+
+.container {
+
+  width: 100%;
+  display: flex;
+  gap: $apx-50;
+
+  @include mobile {
+
+    flex-direction: column;
+    gap: $apx-m-20;
+
+  }
+
+  .left {
+
+    width: $apx-600;
+    height: $apx-900;
+
+    @include mobile {
+
+      width: $apx-m-200;
+      height: $apx-m-300;
+      margin: 0 auto;
+
+    }
+    
+    img {
+
+      width: $apx-600;
+      height: $apx-900;
+      object-fit: cover;
+      border-radius: $apx-10;
+
+      @include mobile {
+
+        width: $apx-m-200;
+        height: $apx-m-300;
+        border-radius: $apx-m-10;
+
+      }
+
+    }
+
+  }
+
+  .right {
+
+    width: 100%;
+    padding: $apx-20;
+    display: flex;
+    flex-direction: column;
+    gap: $apx-30;
+    font-size: $apx-28;
+
+    @include mobile {
+
+      padding: $apx-m-10;
+      gap: $apx-m-10;
+      font-size: $apx-m-12;
+
+    }
+
+    .name {
+
+      font-weight: 700;
+      font-size: $apx-48;
+      margin-bottom: $apx-50;
+
+      @include mobile {
+
+        font-size: $apx-m-24;
+
+      }
+
+    }
+
+    button {
+
+      margin-top: auto;
+      padding: $apx-20;
+      border: 1.5px solid #F0F0F0;
+      border-radius: $apx-10;
+      background-color: #F0F0F0;
+      color: #222222;
+      font-size: $apx-28;
+      font-weight: 600;
+      transition: all 0.3s ease-in-out;
+
+      &:hover,
+      &:focus,
+      &:active {
+
+        transform: scale(1.05);
+
+      }
+
+      @include mobile {
+
+        padding: $apx-m-10;
+        border-radius: $apx-m-10;
+        font-size: $apx-m-14;
+
+      }
+
+    }
+
+  }
+
+}
+
+.modal {
+
+  display: flex;
+  justify-content: center;
+  gap: $apx-50;
+
+  @include mobile {
+
+    gap: $apx-m-20;
+
+  }
+
+  button {
+
+    width: $apx-200;
+    padding: $apx-20;
+    border: 1.5px solid #F0F0F0;
+    border-radius: $apx-10;
+    background-color: #F0F0F0;
+    color: #222222;
+    font-size: $apx-28;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+
+    &:hover,
+    &:focus,
+    &:active {
+
+      transform: scale(1.05);
+
+    }
+
+    @include mobile {
+
+      width: $apx-m-100;
+      padding: $apx-m-10;
+      border-radius: $apx-m-10;
+      font-size: $apx-m-14;
+
+    }
+
+  }
+
+}

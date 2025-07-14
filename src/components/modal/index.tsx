@@ -1,8 +1,8 @@
 import RModal from 'react-modal';
-// import s from './modal.module.scss'
 import disableScroll from '@/scripts/disable.scroll';
 import { FC, ReactNode, useEffect } from 'react';
 import CloseIcon from '../icons/close.icon';
+import s from './modal.module.scss'
 
 RModal.setAppElement('body');
 
@@ -61,9 +61,9 @@ const Modal: FC<ModalProps> = ( props ) => {
 
     >
 
-      <div>
+      <div className = { s.container }>
 
-        <button onClick = { props.onClose }>
+        <button className = { s.close } onClick = { props.onClose }>
 
           <CloseIcon />
 
@@ -83,7 +83,7 @@ export const ModalTitle: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   return (
 
-    <div>
+    <div className = { s.title }>
 
       {children}
 

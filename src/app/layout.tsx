@@ -1,5 +1,6 @@
 import Header from "@/components/header";
 import { ReactNode } from "react";
+import "@/styles/globals.scss";
 
 const RootLayout = ({ children }: Readonly< { children: ReactNode } > ) => {
   
@@ -10,16 +11,16 @@ const RootLayout = ({ children }: Readonly< { children: ReactNode } > ) => {
       <head>
 
         <title>Фильмы на каждый день</title>
-        
+        <meta name = "viewport" content = "width=device-width, initial-scale=1" />
+
       </head>
 
       <body>
 
         <Header/>
-
         { children }
-          
-      </body> 
+        
+      </body>       
       
     </html>
 

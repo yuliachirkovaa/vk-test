@@ -1,0 +1,78 @@
+@import "@/styles/apx.scss";
+@import "@/styles/mixins.scss";
+
+.card {
+
+  display: flex;
+  gap: $apx-50;
+
+  @include mobile {
+
+    gap: $apx-m-10;
+
+  }
+
+  .left {
+
+    width: $apx-300;
+    height: $apx-450;
+
+    @include mobile {
+
+      width: $apx-m-100;
+      height: $apx-m-150;
+
+    }
+    
+    img {
+
+      width: $apx-300;
+      height: $apx-450;
+      object-fit: cover;
+      border-radius: $apx-10;
+
+      @include mobile {
+
+        width: $apx-m-100;
+        height: $apx-m-150;
+        border-radius: $apx-m-10;
+
+      }
+
+    }
+
+  }
+
+  .right {
+
+    padding: $apx-20;
+    display: flex;
+    flex-direction: column;
+    gap: $apx-20;
+    font-size: $apx-28;
+
+    @include mobile {
+
+      padding: $apx-m-10;
+      gap: $apx-m-10;
+      font-size: $apx-m-12;
+
+    }
+
+    .name {
+
+      font-weight: 700;
+      font-size: $apx-32;
+      margin-bottom: $apx-50;
+
+      @include mobile {
+
+        font-size: $apx-m-18;
+
+      }
+
+    }
+
+  }
+
+}

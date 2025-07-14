@@ -1,9 +1,11 @@
 'use client'
 
 import { formatDate } from "@/scripts/get.date";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import Modal, { ModalTitle } from "../modal";
+import s from "./film.module.scss"
 import { FilmItem } from "@/types/films";
+import { addFilmToFavorites, removeFilmFromFavorites } from "@/scripts/add.film.to.favorites";
 
 interface FilmProps {
   id: number;
@@ -18,17 +20,16 @@ interface FilmProps {
 
 const Film: FC<FilmProps> = ({ id, url, name, description, rating, date, genres, year }) => {
 
-  const [ isModalOpened, setIsModalOpened ] = useState(false);
+  const [ isAddModalOpened, setIsAddModalOpened ] = useState(false);
+  const [ isRemoveModalOpened, setIsRemoveModalOpened ] = useState(false);
+  const [ isFavorite, setIsFavorite ] = useState(false);
 
-  function addToFavorites() {
+  const favoriteKey = 'favoriteFilms';
+  let favorites: FilmItem[] = [];
 
-    setIsModalOpened(false);
+  useEffect(() => {
 
-    const favoriteKey = 'favoriteFilms';
-
-    let favorites: FilmItem[] = [];
-
-    try {
+     try {
 
       const stored = localStorage.getItem(favoriteKey);
 
@@ -42,59 +43,87 @@ const Film: FC<FilmProps> = ({ id, url, name, description, rating, date, genres,
 
     }
 
-    if (!favorites.some((f) => f.id === id)) {
+    if (favorites.some((f) => f.id === id)) {
 
-      favorites.push({
-        id,
-        url,
-        name,
-        rating,
-        year,
-      });
+      setIsFavorite(true);
 
-      localStorage.setItem(favoriteKey, JSON.stringify(favorites));
-      console.log(`Фильм '${name}' добавлен в избранное`);
+    } 
 
-    } else {
+  }, []);
 
-      console.log(`Фильм '${name}' уже есть в избранном!`);
+  function addToFavorites() {
 
-    }
+    setIsAddModalOpened(false);
+    addFilmToFavorites(id, url || '', name, rating, year);
+    setIsFavorite(true);
+
+  }
+
+  function removeFromFavorites() {
+
+    setIsRemoveModalOpened(false);
+    removeFilmFromFavorites(id);
+    setIsFavorite(false);
 
   }
 
   return (
   
-    <div>
+    <div className = {s.container}>
 
-      <div>
-        <img src = { url } alt=" " />
+      <div className = {s.left}>
+        <img src = { url || 'https://topnaroda.com/uploads/poster_none.png' } alt=" " />
       </div>
 
-      <div>{ name }</div>
-      <div>{ description }</div>
-      <div>Рейтинг IMDB: { rating > 0 ? rating : 'нет голосов' }</div>
-      <div>Мировая премьера: { date ? formatDate(date) : 'неизвестно' }</div>
+      <div className = {s.right}>
 
-      <div>
-        Жанры:
-        {genres.map((genre, index) => (
-          <div key = { index }>{ genre.name }</div>
-        ))}
+        <h1 className = {s.name}>{ name }</h1>
+        {description && <div>{ description }</div>}
+        <div>Рейтинг IMDB: { rating > 0 ? rating : 'нет голосов' }</div>
+        <div>Мировая премьера: { date ? formatDate(date) : 'неизвестно' }</div>
+
+        <div>
+          Жанры: {genres.map(genre => genre.name).join(', ')}
+        </div>
+
+        {isFavorite 
+
+          ? <button onClick = { () => setIsRemoveModalOpened(true) }>В избранном</button>
+          : <button onClick = { () => setIsAddModalOpened(true) }>Добавить в избранное</button>
+        
+        }
+
+        
+
       </div>
 
-      <button onClick = { () => setIsModalOpened(true) }>Добавить в избранное</button>
-
-      {isModalOpened && 
+      {isAddModalOpened && 
       
-        <Modal isOpen = { isModalOpened } onClose = { () => setIsModalOpened(false) }>
+        <Modal isOpen = { isAddModalOpened } onClose = { () => setIsAddModalOpened(false) }>
 
           <ModalTitle>Добавить фильм в список избранных?</ModalTitle>
 
-          <div>
+          <div className = {s.modal}>
 
             <button onClick = { () => addToFavorites() }>Да</button>
-            <button onClick = { () => setIsModalOpened(false) }>Отмена</button>
+            <button onClick = { () => setIsAddModalOpened(false) }>Отмена</button>
+
+          </div>
+
+        </Modal>
+
+      }
+
+      {isRemoveModalOpened && 
+      
+        <Modal isOpen = { isRemoveModalOpened } onClose = { () => setIsRemoveModalOpened(false) }>
+
+          <ModalTitle>Удалить фильм из списка избранных?</ModalTitle>
+
+          <div className = {s.modal}>
+
+            <button onClick = { () => removeFromFavorites() }>Да</button>
+            <button onClick = { () => setIsRemoveModalOpened(false) }>Отмена</button>
 
           </div>
 

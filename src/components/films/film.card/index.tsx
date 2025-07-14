@@ -1,4 +1,5 @@
 import { FC } from "react";
+import s from "./film.card.module.scss"
 
 interface FilmCardProps {
   url?: string;
@@ -12,17 +13,25 @@ const FilmCard: FC<FilmCardProps> = ({ url, name, year, rating, id }) => {
 
   return (
 
-    <a href = {`/film/${id}`}>
+    <li>
 
-      <div>
-        <img src = { url } alt=" " />
-      </div>
+      <a href = {`/film/${id}`} className = {s.card}>
 
-      <div>{ name }</div>
-      <div>Год выпуска: { year }</div>
-      <div>Рейтинг IMDB: { rating > 0 ? rating : 'нет голосов' }</div>
+        <div className = {s.left}>
+          <img src = { url || 'https://topnaroda.com/uploads/poster_none.png' } alt=" " />
+        </div>
 
-    </a>
+        <div className = {s.right}>
+
+          <h2 className = {s.name}>{ name }</h2>
+          <div>Год выпуска: { year }</div>
+          <div>Рейтинг IMDB: { rating > 0 ? rating : 'нет голосов' }</div>
+
+        </div>
+
+      </a>
+
+    </li>
 
   );
 

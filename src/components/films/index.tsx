@@ -8,6 +8,7 @@ import FilmsFilters from "../filters";
 import { NOT_NULL, PAGE_SIZE, TYPE } from "@/constants/films.params";
 import { Filters } from "@/types/filters";
 import FilmCard from "./film.card";
+import s from "./films.module.scss"
 
 interface FilmsProps {
   films: Film[];
@@ -101,7 +102,7 @@ const Films: FC<FilmsProps> = ({ films: initialFilms, page: initialPage, ssrFilt
 
   return (
 
-    <div>
+    <div className = {s.container}>
 
       <FilmsFilters 
 
@@ -110,30 +111,34 @@ const Films: FC<FilmsProps> = ({ films: initialFilms, page: initialPage, ssrFilt
       
       />
 
-      <div>Список фильмов:</div>
+      <h1 className = {s.title}>Список фильмов:</h1>
 
-      {films.map((film, index) => (
+      <ul className = {s.list}>
 
-        <FilmCard
-        
-          key = { index }
-          url = { film.poster?.url }
-          name = { film.name }
-          year = { film.year }
-          rating = { film.rating?.imdb }
-          id = { film.id }
+        {films.map((film, index) => (
 
-        />
+          <FilmCard
+          
+            key = { index }
+            url = { film.poster?.url }
+            name = { film.name }
+            year = { film.year }
+            rating = { film.rating?.imdb }
+            id = { film.id }
 
-      ))}
+          />
+
+        ))}
+
+      </ul>
 
       {hasMore && (
-        <div ref={loaderRef}>
+        <div ref = {loaderRef} className = {s.status}>
           {loading && <span>Загрузка...</span>}
         </div>
       )}
 
-      {!hasMore && <div>Все фильмы загружены</div>}
+      {!hasMore && <div className = {s.status}>Все фильмы загружены</div>}
 
     </div>
 

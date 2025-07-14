@@ -1,0 +1,81 @@
+@import "@/styles/apx.scss";
+@import "@/styles/mixins.scss";
+
+.container {
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: $apx-50;
+  border-radius: $apx-40;
+  padding: $apx-120;
+  font-size: $apx-28;
+  line-height: 1;
+  text-align: center;
+  background: #222222;
+  box-shadow: 0px 2px 14px 1px rgba(0, 0, 0, 0.1);
+
+  @include mobile {
+
+    gap: $apx-m-20;
+    border-radius: $apx-m-20;
+    padding: $apx-m-50;
+    font-size: $apx-m-12;
+
+  }
+
+}
+
+.close {
+
+  position: absolute;
+  top: $apx-30;
+  right: $apx-30;
+  border: none;
+  background: none;
+  cursor: pointer;
+
+  svg path {
+
+    transition: all var(--transition-speed) ease-in-out;
+
+  }
+
+  &:hover, &:focus, &:active {
+
+    svg path {
+
+      fill: red;
+  
+    }
+
+  }
+
+  @include mobile {
+
+    top: $apx-m-15;
+    right: $apx-m-15;
+
+    svg {
+
+      width: $apx-m-15;
+      height: $apx-m-15;
+
+    }
+
+  }
+
+}
+
+.title {
+
+  font-weight: 700;
+  font-size: $apx-36;
+
+  @include mobile {
+
+    font-size: $apx-m-22;
+    line-height: 1.2;
+
+  }
+}

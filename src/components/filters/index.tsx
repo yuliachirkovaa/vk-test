@@ -1,6 +1,7 @@
 import { getGenres } from "@/scripts/backend";
 import { Filters, Genres } from "@/types/filters";
 import { useEffect, useMemo, useState } from "react";
+import s from "./filters.module.scss"
 
 interface FilmsFiltersProps {
   filters: Filters;
@@ -40,7 +41,6 @@ const FilmsFilters: React.FC<FilmsFiltersProps> = ({ filters, setFilters }) => {
 
   };
 
-  // Множественный выбор жанров
   const handleGenreToggle = (genre: string) => {
 
     setLocalGenres((prev) => {
@@ -50,7 +50,6 @@ const FilmsFilters: React.FC<FilmsFiltersProps> = ({ filters, setFilters }) => {
 
   };
 
-  // Если год или рейтинг поменялись вручную — обновить локальное состояние
   const handleRangeChange = (name: string, value: number) => {
 
     if (name === "ratingFrom") setratingFrom(value);
@@ -68,16 +67,19 @@ const FilmsFilters: React.FC<FilmsFiltersProps> = ({ filters, setFilters }) => {
         e.preventDefault();
         applyFilters();
       }}
+      className = {s.container}
 
     >
 
-      <div>
+      <div className = {s.block}>
 
-        <div>Жанры:</div>
+        <div className = {s.type}>Жанры:</div>
 
-        {allGenres.map(genre => (
+        <div className = {s.genres}>
 
-          <label key = { genre.slug } style = {{ marginRight: 8 }}>
+          {allGenres.map(genre => (
+
+          <label key = { genre.slug } style = {{ marginRight: 8 }} className = {s.check}>
             <input
               type = "checkbox"
               checked = { localGenres.includes(genre.name) }
@@ -88,11 +90,13 @@ const FilmsFilters: React.FC<FilmsFiltersProps> = ({ filters, setFilters }) => {
 
         ))}
 
+        </div>
+
       </div>
 
-      <div>
+      <div className = {s.block}>
 
-        <div>Рейтинг (IMDB):</div>
+        <div className = {s.type}>Рейтинг (IMDB):</div>
 
         <input
           type = "number"
@@ -100,6 +104,7 @@ const FilmsFilters: React.FC<FilmsFiltersProps> = ({ filters, setFilters }) => {
           max = { 10 }
           value = { ratingFrom }
           onChange = {e => handleRangeChange("ratingFrom", Number(e.target.value))}
+          className = {s.input}
         />
 
         &nbsp;-&nbsp;
@@ -110,13 +115,14 @@ const FilmsFilters: React.FC<FilmsFiltersProps> = ({ filters, setFilters }) => {
           max = { 10 }
           value = { ratingTo }
           onChange = { e => handleRangeChange("ratingTo", Number(e.target.value)) }
+          className = {s.input}
         />
 
       </div>
 
-      <div>
+      <div className = {s.block}>
 
-        <div>Год (с 1990):</div>
+        <div className = {s.type}>Год (с 1990):</div>
 
         <input
           type = "number"
@@ -124,6 +130,7 @@ const FilmsFilters: React.FC<FilmsFiltersProps> = ({ filters, setFilters }) => {
           max = { yearTo }
           value = { yearFrom }
           onChange = { e => handleRangeChange("yearFrom", Number(e.target.value)) }
+          className = {s.input}
         />
 
         &nbsp;-&nbsp;
@@ -134,6 +141,7 @@ const FilmsFilters: React.FC<FilmsFiltersProps> = ({ filters, setFilters }) => {
           max = { thisYear }
           value = { yearTo }
           onChange = { e => handleRangeChange("yearTo", Number(e.target.value)) }
+          className = {s.input}
         />
 
       </div>
