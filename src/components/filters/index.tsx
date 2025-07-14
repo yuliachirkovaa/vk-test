@@ -1,6 +1,6 @@
 import { getGenres } from "@/scripts/backend";
 import { Filters, Genres } from "@/types/filters";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 interface FilmsFiltersProps {
   filters: Filters;
@@ -17,12 +17,16 @@ const FilmsFilters: React.FC<FilmsFiltersProps> = ({ filters, setFilters }) => {
   const [ yearFrom, setyearFrom ] = useState<number>(filters.yearFrom ?? 1990);
   const [ yearTo, setyearTo ] = useState<number>(filters.yearTo ?? thisYear);
 
-  (async () => {
+  useEffect(() => {
 
-    const data = await getGenres();
-    setAllGenres(data);
+    (async () => {
 
-  })();
+      const data = await getGenres();
+      setAllGenres(data);
+
+    })();
+
+  }, []);
 
   const applyFilters = () => {
 

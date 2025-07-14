@@ -34,7 +34,7 @@ export type Poster = {
 
 export type Film = {
   id: number;
-  name: string | null;
+  name: string;
   alternativeName: string;
   type: string;
   typeNumber: number;
@@ -57,4 +57,12 @@ export type Film = {
   isSeries: boolean;
   ticketsOnSale: boolean;
   poster?: Poster;
+}
+
+export type FilmItem = {
+  url?: string;
+  name: string;
+  year: number;
+  rating: number;
+  id: number;
 }

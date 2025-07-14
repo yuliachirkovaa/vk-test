@@ -53,8 +53,6 @@ async function getFilms(
 
     });
 
-    console.log('!!!!!', data);
-
     if (status !== 200) throw data;
     return data;
 
@@ -97,9 +95,35 @@ async function getGenres() {
 
 }
 
+async function getFilmById(id: number) {
+  
+  try {
+
+    const { data, status } = await axios.get(API.FILM(id), {
+
+      headers: {
+        accept: 'application/json',
+        'X-API-KEY': '6GS2239-4C3456F-NQ422KZ-YMN61WZ',
+      },
+
+    });
+
+    if (status !== 200) throw data;
+    return data;
+
+  } catch (error) {
+
+    console.error(`getFilmById error:`, error);
+    return { film: {} };
+
+  }
+
+}
+
 export {
 
   getFilms,
   getGenres,
+  getFilmById
 
 }

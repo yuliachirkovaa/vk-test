@@ -7,6 +7,7 @@ import { FC, useCallback, useEffect, useRef, useState } from "react";
 import FilmsFilters from "../filters";
 import { NOT_NULL, PAGE_SIZE, TYPE } from "@/constants/films.params";
 import { Filters } from "@/types/filters";
+import FilmCard from "./film.card";
 
 interface FilmsProps {
   films: Film[];
@@ -81,7 +82,6 @@ const Films: FC<FilmsProps> = ({ films: initialFilms, page: initialPage, ssrFilt
 
   }, [page, filters, loading, hasMore]);
 
-
   useEffect(() => {
 
     if (!hasMore || loading) return;
@@ -114,17 +114,16 @@ const Films: FC<FilmsProps> = ({ films: initialFilms, page: initialPage, ssrFilt
 
       {films.map((film, index) => (
 
-        <div key = { index }>
+        <FilmCard
+        
+          key = { index }
+          url = { film.poster?.url }
+          name = { film.name }
+          year = { film.year }
+          rating = { film.rating?.imdb }
+          id = { film.id }
 
-          <div>
-            <img src = { film.poster?.previewUrl } alt=" " />
-          </div>
-
-          <div>{ film.name }</div>
-          <div>{ film.year }</div>
-          <div>{ film.rating?.imdb }</div>
-
-        </div>
+        />
 
       ))}
 

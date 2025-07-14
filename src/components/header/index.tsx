@@ -6,8 +6,8 @@ const Header: FC = () => {
 
     <div>
 
-      <div>Главная</div>
-      <div>Избранное</div>
+      <a href = "/">Главная</a>
+      <a href = "/favorites">Избранное</a>
 
     </div>
 
