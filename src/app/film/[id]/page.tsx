@@ -1,12 +1,7 @@
 import Film from "@/components/film";
 import { getFilmById } from "@/scripts/backend";
-import { FC } from "react";
 
-interface Props {
-  params: { id: string };
-}
-
-const FilmPage: FC<Props> = async ({ params }) => {
+export default async function FilmPage({ params }: any) {
 
   let film;
 
@@ -40,5 +35,3 @@ const FilmPage: FC<Props> = async ({ params }) => {
   );
 
 };
-
-export default FilmPage;
