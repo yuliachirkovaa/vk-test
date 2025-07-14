@@ -20,3 +20,7 @@
 **Как запустить проект:**  
 - npm install 
 - npm run dev 
+ИЛИ 
+- npm install 
+- npm run build
+- npm start
